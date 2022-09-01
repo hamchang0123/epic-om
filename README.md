@@ -7,7 +7,9 @@ Code for an MSc Epidemiology summer project
 
 This repository has five folders: 
 1. **Data**, storing all the datasets used for the project
-2. **Main**, storing all the scripts related to the model simulation and fitting
-3. **Parameter**, storing all the scripts used for parameter estimation
-4. **Sensitivity**, storing all the scripts used in sensitivity analyses for relative infectiousness of subclinical infections and the measure that recommends the canclleation of public events
+2. **Main**, storing all the scripts for model simulation and fitting
+3. **Parameter**, storing all the scripts for parameter estimation
+4. **Sensitivity**, storing all the scripts used in sensitivity analyses for 
+  - relative infectiousness of subclinical infections
+  - measure that recommends the canclleation of public events
 5. **Etc**, storing all the scripts used for other purposes (mostly for analysis)
