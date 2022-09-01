@@ -1,5 +1,5 @@
 # EPIC-OM
-## Effect of Public Health Interventions on COVID-19 Transmission in South Korea After the Emergence of the Omicron variant (B1.1.529)
+## Effect of Public Health Interventions on COVID-19 Transmission in South Korea after the Emergence of the Omicron Variant (B1.1.529)
 
 Code for an MSc Epidemiology summer project
 
