@@ -3,7 +3,7 @@
 
 Code for an MSc Epidemiology summer project
 
-### Quick start guide
+### :rocket:Quick start guide
 
 This repository has five folders: 
 1. **Data**, storing all the datasets used for the project
