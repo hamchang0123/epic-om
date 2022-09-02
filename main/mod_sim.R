@@ -1,4 +1,5 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+source('./parameters.R')
 pacman::p_load(tidyverse, rio, deSolve, reshape2)
 
 mod_sim <- function(time, state, parameters) {

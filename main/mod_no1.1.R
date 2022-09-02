@@ -1,7 +1,17 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/obs.R')
-## Remove c1.1
+##### SET UP
+#--Load libraries
+pacman::p_load(tidyverse, rio, deSolve, reshape2)
+
+#--Load scripts
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
+source('./parameters.R')
+source('./mod_sim.R')
+source('./obs.R')
+
+
+#### MODEL
+#--Model with c1.1 lifted
 mod_no_c1.1 <- function(time, state, parameters) {
   with(as.list(c(state, parameters)),{
     N_y <- S_y + E_y + Ip_y + Ic_y + Is_y + R_y
@@ -76,7 +86,7 @@ mod_no_c1.1 <- function(time, state, parameters) {
   })
 }
 
-#--MODEL OUTPUT
+#--Model output
 output_no_c1.1 <- as.data.frame(ode(y = initial, 
                                 times = times, 
                                 func = mod_no_c1.1,
@@ -106,30 +116,38 @@ p1.1 <- ggplot() +
   ggtitle('(A)')+
   theme(axis.title = element_blank(), plot.title = element_text(size=10), legend.position="None")
 
-###### ANALYSE: TOTAL POPULATION
+###### ANALYSE
+#--0. Functions
+cumt <- function(x){
+  cumt = cumsum(x$Dt_per_m)[166]
+  return(as.numeric(cumt))
+}
+
+pkcase <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$Dt_per_m)
+}
+
+pktime <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$time)
+}
 #--1. Cumulative cases
 #---1.1 baseline (all interventions in place)
-cum_t <- output2_sim %>%
-  summarise(sum = sum(Dt_per_m))
 
-cum_t <- as.numeric(cum_t$sum)
+cum_t <- cumt(output2_sim)
 
-#---1.2 with c2.2 lifted
-cum_t_no_c1.1<- output2_no_c1.1 %>%
-  summarise(sum = sum(Dt_per_m))
-
-cum_t_no_c1.1 <- as.numeric(cum_t_no_c1.1$sum)
+#---1.2 with c1.1 lifted
+cum_t_no_c1.1<- cumt(output2_no_c1.1)
 
 #--2. Peak cases & time
 #---2.1 baseline (all interventions in place)
-max_t <- output2_sim %>%
-  filter(Dt_per_m == max(Dt_per_m))
+pk_t_time <- pktime(output2_sim)
+pk_t_case <- pkcase(output2_sim)
 
-pk_t_time <- max_t$time; pk_t_case <- max_t$Dt_per_m
-
-#---2.2 with c2.2 lifted
-max_t_no_c1.1 <- output2_no_c1.1 %>%
-  filter(Dt_per_m == max(Dt_per_m))
-
-pk_t_no_c1.1_time <- max_t_no_c1.1$time; pk_t_no_c1.1_case <- max_t_no_c1.1$Dt_per_m
+#---2.2 with c1.1 lifted
+pk_t_no_c1.1_time <- pktime(output2_no_c1.1)
+pk_t_no_c1.1_case <- pkcase(output2_no_c1.1)
 

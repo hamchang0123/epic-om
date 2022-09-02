@@ -1,7 +1,15 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/obs.R')
+##### SET UP
+#--Load libraries
+pacman::p_load(tidyverse, rio, deSolve, reshape2)
 
+#--Load scripts
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
+source('./parameters.R')
+source('./mod_sim.R')
+source('./obs.R')
+
+###### MODEL
 ## Remove c2.2
 mod_no_c2.2 <- function(time, state, parameters) {
   with(as.list(c(state, parameters)),{
@@ -102,18 +110,28 @@ p2.2 <- ggplot() +
 
 p2.2
 
-###### ANALYSE: TOTAL POPULATION
-#--1. Cumulative cases
-#---1.2 with c2.2 lifted
-cum_t_no_c2.2 <- output2_no_c2.2 %>%
-  summarise(sum = sum(Dt_per_m))
+###### ANALYSE
+#--0. Functions
+cumt <- function(x){
+  cumt = cumsum(x$Dt_per_m)[166]
+  return(as.numeric(cumt))
+}
 
-cum_t_no_c2.2 <- as.numeric(cum_t_no_c2.2$sum)
+pkcase <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$Dt_per_m)
+}
 
-#--2. Peak cases & time
-#---2.2 with c2.2 lifted
-max_t_no_c2.2 <- output2_no_c2.2 %>%
-  filter(Dt_per_m == max(Dt_per_m))
+pktime <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$time)
+}
 
-pk_t_no_c2.2_time <- max_t_no_c2.2$time; pk_t_no_c2.2_case <- max_t_no_c2.2$Dt_per_m
+#--1. Cumulative cases with c2.2 lifted
+cum_t_no_c2.2 <- cumt(output2_no_c2.2)
 
+#--2. Peak cases & time with c2.2 lifted
+pk_t_no_c2.2_time <- pktime(output2_no_c2.2) 
+pk_t_no_c2.2_case <- pkcase(output2_no_c2.2)

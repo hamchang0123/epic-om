@@ -1,6 +1,13 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
+##### SET UP
+#--Load libraries
+pacman::p_load(tidyverse, rio, deSolve, reshape2, gridExtra, grid, lattice)
 
+#--Load scripts
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
 
+source('./parameters.R')
+
+##### MODEL
 mod_sim_c4.3_long <- function(time, state, parameters) {
   with(as.list(c(state, parameters)),{
     N_y <- S_y + E_y + Ip_y + Ic_y + Is_y + R_y

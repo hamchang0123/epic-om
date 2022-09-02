@@ -105,3 +105,27 @@ output2_sim_c3.1_long <- output_sim_c3.1_long %>%
   )
 
 
+#--0. Functions
+cumt <- function(x){
+  cumt = cumsum(x$Dt_per_m)[166]
+  return(as.numeric(cumt))
+}
+
+pkcase <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$Dt_per_m)
+}
+
+pktime <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$time)
+}
+
+#---1. Cumulative cases with c3.1_long lifted
+cum_t_c3.1_long <- cumt(output2_sim_c3.1_long)
+
+#--2 Peak cases & time with c3.1_long
+pk_t_c3.1_long_time <- pktime(output2_sim_c3.1_long) 
+pk_t_c3.1_long_case <- pkcase(output2_sim_c3.1_long)

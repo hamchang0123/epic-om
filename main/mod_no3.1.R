@@ -1,7 +1,16 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/obs.R')
+##### SET UP
+#--Load libraries
+pacman::p_load(tidyverse, rio, deSolve, reshape2)
 
+#--Load scripts
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
+source('./parameters.R')
+source('./mod_sim.R')
+source('./obs.R')
+
+
+#### MODEL
 mod_no_c3.1 <- function(time, state, parameters) {
   with(as.list(c(state, parameters)),{
     N_y <- S_y + E_y + Ip_y + Ic_y + Is_y + R_y
@@ -106,30 +115,28 @@ p3.1 <- ggplot() +
   theme(axis.title = element_blank(), plot.title = element_text(size=10), legend.position = 'None')
 
 p3.1
-###### ANALYSE: TOTAL POPULATION
-#--1. Cumulative cases
-#---1.2 with c3.1 lifted
-cum_t_no_c3.1 <- output2_no_c3.1 %>%
-  summarise(sum = sum(Dt_per_m))
+###### ANALYSE
+#--0. Functions
+cumt <- function(x){
+  cumt = cumsum(x$Dt_per_m)[166]
+  return(as.numeric(cumt))
+}
 
-cum_t_no_c3.1 <- as.numeric(cum_t_no_c3.1$sum)
+pkcase <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$Dt_per_m)
+}
 
-#---1.3 with c3.1_long
-cum_t_c3.1_long <- output2_sim_c3.1_long %>%
-  summarise(sum = sum(Dt_per_m))
+pktime <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$time)
+}
 
-cum_t_c3.1_long <- as.numeric(cum_t_c3.1_long$sum)
+#--1. Cumulative cases with c3.1 lifted
+cum_t_no_c3.1 <- cumt(output2_no_c3.1)
 
-
-#--2. Peak cases & time
-#---2.2 with c3.1 lifted
-max_t_no_c3.1 <- output2_no_c3.1 %>%
-  filter(Dt_per_m == max(Dt_per_m))
-
-pk_t_no_c3.1_time <- max_t_no_c3.1$time; pk_t_no_c3.1_case <- max_t_no_c3.1$Dt_per_m
-
-#---2.3 with c3.1_long
-max_t_c3.1_long <- output2_sim_c3.1_long %>%
-  filter(Dt_per_m == max(Dt_per_m))
-
-pk_t_c3.1_long_time <- max_t_c3.1_long$time; pk_t_c3.1_long_case <- max_t_c3.1_long$Dt_per_m
+#--2. Peak cases & time with c3.1 lifted
+pk_t_no_c3.1_time <- pktime(output2_no_c3.1) 
+pk_t_no_c3.1_case <- pkcase(output2_no_c3.1)

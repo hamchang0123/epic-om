@@ -1,4 +1,5 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+source('./parameters.R')
 pacman::p_load(magrittr, rio, tidyverse)
 
 obs_a <- rio::import(file = 'C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/data/obs_a.csv')

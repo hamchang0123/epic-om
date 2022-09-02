@@ -1,13 +1,20 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim_c4.3.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim_c4.3_long.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no4.4.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/obs.R')
+##### SET UP
+#--Load libraries
+pacman::p_load(tidyverse, rio, deSolve, reshape2, gridExtra, grid, lattice)
 
+#--Load scripts
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
 
-pacman::p_load(gridExtra, grid, lattice)
+source('./parameters.R')
+source('./mod_sim.R')
+source('./obs.R')
+source('./mod_sim_c4.3.R')
+source('./mod_sim_c4.3_long.R')
+source('./mod_no4.4.R')
+source('./obs.R')
 
+##### MODEL
+#--Model with c4.3 lifted
 mod_no_c4.3 <- function(time, state, parameters) {
   with(as.list(c(state, parameters)),{
     N_y <- S_y + E_y + Ip_y + Ic_y + Is_y + R_y
@@ -102,6 +109,10 @@ output2_no_c4.3 <- output_no_c4.3 %>%
   )
 
 ###### PLOT
+#--Empty plot
+p0 <- ggplot()+
+  theme(panel.background = element_blank())
+
 p4.3 <- ggplot() + 
   geom_line(data = output2_no_c4.3, aes(x=time, y=Dt_per_m, colour='red'))+
   geom_line(data=output2_sim_c4.3, aes(x=time, y=Dt_per_m, colour = 'black'),linetype=2)+
@@ -128,58 +139,54 @@ bottom <- textGrob('Time (day)', gp = gpar(fontsize = 10))
 
 grid.arrange(p4.3, p4.3_long, p4.4, p0, nrow=2, ncol=2, left = yleft, bottom = bottom, respect = T)
 
-###### ANALYSE: TOTAL POPULATION
+###### ANALYSE: c4.3
+#--0. Functions
+cumt <- function(x){
+  cumt = cumsum(x$Dt_per_m)[166]
+  return(as.numeric(cumt))
+}
+
+pkcase <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$Dt_per_m)
+}
+
+pktime <- function(x){
+  pk = as.data.frame(x %>% 
+                       filter(Dt_per_m == max(Dt_per_m)))
+  return(pk$time)
+}
+
 #--1. Cumulative cases
 #---1.1 baseline (all interventions in place)
-cum_t_sim_c4.3 <- output2_sim_c4.3 %>%
-  summarise(sum = sum(Dt_per_m))
-
-cum_t_sim_c4.3 <- as.numeric(cum_t_sim_c4.3$sum)
+cum_t_sim_c4.3 <- cumt(output2_sim_c4.3)
 
 #---1.2 with c4.3 lifted
-cum_t_no_c4.3 <- output2_no_c4.3 %>%
-  summarise(sum = sum(Dt_per_m))
-
-cum_t_no_c4.3 <- as.numeric(cum_t_no_c4.3$sum)
+cum_t_no_c4.3 <- cumt(output2_no_c4.3)
 
 #--2. Peak cases & time
 #---2.1 baseline (all interventions in place)
-max_t_sim_c4.3 <- output2_sim_c4.3 %>%
-  filter(Dt_per_m == max(Dt_per_m))
-
-pk_t_sim_c4.3_time <- max_t_sim_c4.3$time; pk_t_sim_c4.3_case <- max_t_sim_c4.3$Dt_per_m
+pk_t_sim_c4.3_time <- pktime(output2_sim_c4.3)
+pk_t_sim_c4.3_case <- pkcase(output2_sim_c4.3)
 
 #---2.2 with c4.3 lifted
-max_t_no_c4.3 <- output2_no_c4.3 %>%
-  filter(Dt_per_m == max(Dt_per_m))
+pk_t_no_c4.3_time <- pktime(output2_no_c4.3) 
+pk_t_no_c4.3_case <- pkcase(output2_no_c4.3)
 
-pk_t_no_c4.3_time <- max_t_no_c4.3$time; pk_t_no_c4.3_case <- max_t_no_c4.3$Dt_per_m
-
-
-#################c4.3_long
-##### ANALYSE: TOTAL POPULATION
+##### ANALYSE: c4.3_long
 #--1. Cumulative cases
 #---1.1 baseline (all interventions in place)
-cum_t_sim_c4.3_long <- output2_sim_c4.3_long %>%
-  summarise(sum = sum(Dt_per_m))
-
-cum_t_sim_c4.3_long <- as.numeric(cum_t_sim_c4.3_long$sum)
+cum_t_sim_c4.3_long <- cumt(output2_sim_c4.3_long)
 
 #---1.2 with c4.3_long lifted
-cum_t_no_c4.3 <- output2_no_c4.3 %>%
-  summarise(sum = sum(Dt_per_m))
-
-cum_t_no_c4.3 <- as.numeric(cum_t_no_c4.3$sum)
+cum_t_no_c4.3 <- cumt(output2_no_c4.3)
 
 #--2. Peak cases & time
 #---2.1 baseline (all interventions in place)
-max_t_sim_c4.3_long <- output2_sim_c4.3_long %>%
-  filter(Dt_per_m == max(Dt_per_m))
-
-pk_t_sim_c4.3_long_time <- max_t_sim_c4.3_long$time; pk_t_sim_c4.3_long_case <- max_t_sim_c4.3_long$Dt_per_m
+pk_t_sim_c4.3_long_time <- pktime(output2_sim_c4.3_long)
+pk_t_sim_c4.3_long_case <- pkcase(output2_sim_c4.3_long)
 
 #---2.2 with c4.3 lifted
-max_t_no_c4.3 <- output2_no_c4.3 %>%
-  filter(Dt_per_m == max(Dt_per_m))
-
-pk_t_no_c4.3_time <- max_t_no_c4.3$time; pk_t_no_c4.3_case <- max_t_no_c4.3$Dt_per_m
+pk_t_no_c4.3_time <- pktime(output2_no_c4.3)
+pk_t_no_c4.3_case <- pkcase(output2_no_c4.3)
