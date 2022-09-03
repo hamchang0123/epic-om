@@ -1,5 +1,5 @@
 # EPIC-OM
-## *E*ffect of *P*ublic Health *I*nterventions on *C*OVID-19 Transmission in South Korea after the Emergence of the *Om*icron Variant (B1.1.529)
+## 'E'ffect of 'P'ublic Health 'I'nterventions on 'C'OVID-19 Transmission in South Korea after the Emergence of the 'Om'icron Variant (B1.1.529)
 
 Code for an MSc Epidemiology summer project
 
