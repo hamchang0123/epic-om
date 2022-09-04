@@ -13,3 +13,12 @@ This repository has four folders:
   - relative infectiousness of subclinical infections
   - measure that recommends the canclleation of public events
 
+### :bulb:Coding
+
+The measures were coded in the scripts as follows:
+1. **c1.1**, corresponding to the measure that recommended the school closure (M^S)
+2. **c2.2**, corresponding to the measure that required the cancellation of workplace closure
+3. **c4.4**, corresponding to the measure that required the restriction of gatherings to 10 people or fewer
+4. **c4.3**, corresponding to the measure that required the restriction of gatherings to 100 people or fewer
+5. **c3.2**, corresponding to the measure that required the cancellation of public events
+6. **c3.1**, corresponding to the measure that recommended the cancellation of public events 
