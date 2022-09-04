@@ -22,3 +22,6 @@ The measures in the scripts were coded as follows:
 4. **c4.3**, corresponding to the measure that required the restriction of gatherings to 100 people or fewer
 5. **c3.2**, corresponding to the measure that required the cancellation of public events
 6. **c3.1**, corresponding to the measure that recommended the cancellation of public events 
+
+### :mag:Main plot
+![main plot](https://github.com/hamchang0123/epic-om/image.png?raw=true)
