@@ -24,4 +24,4 @@ The measures in the scripts were coded as follows:
 6. **c3.1**, corresponding to the measure that recommended the cancellation of public events 
 
 ### :mag:Main plot
-![main plot](https://github.com/hamchang0123/epic-om/blob/main/image.png?raw=true)
+![main plot](https://github.com/hamchang0123/epic-om/blob/main/plot.png?raw=true)
