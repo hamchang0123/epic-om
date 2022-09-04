@@ -25,3 +25,4 @@ The measures in the scripts were coded as follows:
 
 ### :mag:Main plot
 ![main plot](https://github.com/hamchang0123/epic-om/blob/main/plot.png?raw=true)
+- (A) Without c1.1, (B) Without c2.2, (C) Without c4.4, (D) Without c3.1 
