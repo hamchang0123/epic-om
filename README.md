@@ -11,7 +11,7 @@ This repository has four folders:
 3. **Parameter**, storing the scripts for parameter estimation
 4. **Sensitivity**, storing the scripts used in parameter sensitivity analysis for 
   - relative infectiousness of subclinical infections
-  - measure that recommends the canclleation of public events
+  - measure that recommends the cancellation of public events
 
 ### :bulb:Coding
 
