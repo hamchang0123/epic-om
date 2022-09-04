@@ -1,12 +1,14 @@
 pacman::p_load(tidyverse, rio, ggpubr, magrittr, gridExtra, grid, lattice)
+
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
 #--Read in baseline models
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim_c3.1_long.R')
+source('./mod_sim.R')
 #--Read in models without a particular intervention 
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no1.1.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no2.2.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no4.4.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no3.1.R')
+source('./mod_no1.1.R')
+source('./mod_no2.2.R')
+source('./mod_no4.4.R')
+source('./mod_no3.1.R')
 
 
 df_comp_t <- data.frame(
