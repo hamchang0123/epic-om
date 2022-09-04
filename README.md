@@ -15,8 +15,8 @@ This repository has four folders:
 
 ### :bulb:Coding
 
-The measures were coded in the scripts as follows:
-1. **c1.1**, corresponding to the measure that recommended the school closure (M^S)
+The measures in the scripts were coded as follows:
+1. **c1.1**, corresponding to the measure that recommended the school closure
 2. **c2.2**, corresponding to the measure that required the cancellation of workplace closure
 3. **c4.4**, corresponding to the measure that required the restriction of gatherings to 10 people or fewer
 4. **c4.3**, corresponding to the measure that required the restriction of gatherings to 100 people or fewer
