@@ -1,35 +1,27 @@
-setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
-source('./parameters.R')
+#--Set up
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om')
+source('./main/parameters.R')
 pacman::p_load(magrittr, rio, tidyverse)
 
-obs_a <- rio::import(file = 'C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/data/obs_a.csv')
-
+#--Import observed incidence in adults
+obs_a <- rio::import(file = './data/obs_a.csv')
 
 obs_a <- obs_a %>% 
   filter(dates > '2022-01-15' & dates < '2022-07-01')%>%
   mutate(dates = as.Date(dates), time = 0:165)
 
-obs_y <- rio::import(file = 'C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/data/obs_y.csv')
+#--Import observed incidence in children
+obs_y <- rio::import(file = './data/obs_y.csv')
 
 obs_y <- obs_y %>% 
   filter(dates > '2022-01-15' & dates < '2022-07-01')%>%
   mutate(dates = as.Date(dates), time = 0:165)
 
-
+#--Create total observed incidence
 obs_t <- data.frame(
   time = 0:165,
   daily = obs_a$daily + obs_y$daily
 )
-
-obs_t <- obs_t %>%
-  mutate(Dt_per_m = daily / parameters['popn'] *1E6)
-
-obs_a <- obs_a %>%
-  mutate(Da_per_m = daily / parameters['popn'] *1E6)
-
-obs_y <- obs_y %>%
-  mutate(Dy_per_m = daily / parameters['popn'] *1E6)
-
 
 obs_t %>% 
   summarise(cumulative = sum(Dt_per_m))

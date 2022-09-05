@@ -59,4 +59,4 @@ bottom <- textGrob('Time (day)', gp = gpar(fontsize = 10))
 
 p_comp <- grid.arrange(p0, p0.0, p1.1, p2.2, p4.4, p3.1, nrow=3, ncol=2, left = yleft, bottom = bottom, respect = T)
 
-save_plot(filename = './plot.png', plot = p_comp, nrow=3, ncol=2, dpi = 800, limitsize=F)
+save_plot(filename = './plot.png', plot = p_comp, nrow=3, ncol=2, dpi = 800, limitsize=T)
