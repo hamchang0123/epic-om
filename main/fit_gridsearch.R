@@ -1,10 +1,13 @@
 #####################
-pacman::p_load(rio, tidyverse, ggpubr)
+pacman::p_load(tidyverse, rio, ggpubr, magrittr, gridExtra, grid, lattice, cowplot)
+
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
 
 #####################
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/obs.R')
+source('./parameters.R')
+source('./mod_sim.R')
+source('./obs.R')
 
 #######################
 k=seq(0, 1, 0.1)

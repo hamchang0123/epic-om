@@ -5,7 +5,7 @@ Code for an MSc Epidemiology summer project
 
 ### :rocket:Quick start guide
 
-This repository has four folders: 
+This repository has four folders mainly: 
 1. **Data**, storing the datasets used for the project
 2. **Main**, storing the scripts for model simulation and fitting
 3. **Parameter**, storing the scripts for parameter estimation

@@ -1,11 +1,15 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/0803_parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/0803_mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/0803_obs.R')
+pacman::p_load(tidyverse, rio, ggpubr, magrittr, gridExtra, grid, lattice, cowplot)
 
-pacman::p_load(ggpubr)
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
+source('./parameters.R')
+source('./mod_sim.R')
+source('./obs.R')
+
 ###########PLOT OBSERVED VS MODELLED DATA
 #--Overall
 cols <- c('observed' = 'light grey', 'modelled' = 'red')
+
 ggplot()+
   geom_point(data = obs_t, aes(x=time, y=Dt_per_m, colour='observed'),alpha=0.7, size=1.5)+
   geom_line(data = output2_sim, aes(x=time, y=Dt_per_m, colour='modelled'))+

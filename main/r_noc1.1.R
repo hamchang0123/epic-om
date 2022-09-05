@@ -1,5 +1,6 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/r_baseline.R')
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+source('./parameters.R')
+source('./r_baseline.R')
 
 #################No c1.1
 
@@ -43,4 +44,5 @@ r_param <- as.data.frame(t(r_param))
 #1.062e+00
 #r_yy_d19
 #8.874e-01
+
 export(r_param, 'C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/output/r_no_c1.1.csv')

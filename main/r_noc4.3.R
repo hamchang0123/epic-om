@@ -1,6 +1,6 @@
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/parameters.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/r_baseline.R')
-
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+source('./parameters.R')
+source('./r_baseline.R')
 
 pacman::p_load(tidyverse, rio, magrittr, ggpubr)
 

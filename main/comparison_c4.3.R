@@ -1,16 +1,18 @@
-pacman::p_load(magrittr, tidyverse, rio)
+pacman::p_load(tidyverse, rio, ggpubr, magrittr, gridExtra, grid, lattice, cowplot)
+
+setwd('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/epic-om/main')
+
 
 #--Read in baseline models
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no1.1.R')
+source('./mod_sim.R')
+source('./mod_sim_c4.3.R')
+source('./mod_sim_c4.3_long.R')
 
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim_c4.3.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_sim_c4.3_long.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no4.3.R')
 
 #--Read in models without a particular intervention 
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no4.4.R')
-source('C:/Users/hanna/OneDrive - London School of Hygiene and Tropical Medicine/3_summer/script/fin/mod_no4.3.R')
+source('./mod_no1.1.R')
+source('./mod_no4.4.R')
+source('./mod_no4.3.R')
 
 ###c4.3 vs c4.3_long vs no_c4.3
 df_comp_c4.3 <- data.frame(
